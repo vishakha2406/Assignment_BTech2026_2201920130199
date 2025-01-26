@@ -1,0 +1,122 @@
+# Assignment_BTech2026_2201920130199
+125. Valid Palindrome
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuilder sb=new StringBuilder();
+        int n=s.length();
+        s=s.toLowerCase();
+        for(int i=0;i<n;i++){
+            char c=s.charAt(i);
+            if(c!=' '){
+                int b=c-97;
+                if(0<=b && b<26){
+                    sb.append(c);
+                }
+                if(c=='0' || c=='1' || c=='2' || c=='3' || c=='4' || c=='5' || c=='6' || c=='7' || c=='8' || c=='9'){
+                    sb.append(c);
+                }
+            }
+        }
+        String a=sb.toString();
+        String v=sb.reverse().toString();
+        if(v.equals(a)){
+            return true;
+        }
+        return false;
+    }
+}
+
+Approach:
+Convert the input string s to lowercase for case insensitivity.
+Iterate through each character in the string:
+Ignore spaces.
+Check if the character is a lowercase letter using ASCII value (c - 97) and append it.
+Check if the character is a digit by comparing it with numeric characters and append it.
+Convert the StringBuilder to a string and reverse it.
+Compare the original processed string with the reversed version.
+Return true if they are equal; otherwise, return false.
+
+
+
+
+
+
+
+
+
+28. Find the Index of the First Occurrence in a String
+Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+ class Solution {
+    public int strStr(String haystack, String needle) {
+        int n=haystack.length();
+        int m=needle.length();
+        int res=-1;
+        for(int i=0;i<=n-m;i++){           
+           if(haystack.substring(i,i+m).equals(needle)){
+              res=i;
+              break;
+           }
+        }
+    return res;
+   }
+}
+
+Approach:
+Calculate the lengths of haystack (n) and needle (m).
+Iterate through haystack up to n-m to ensure enough characters remain for comparison.
+Extract a substring of length m from the current position and compare it with needle.
+If a match is found, store the starting index and break the loop.
+Return the stored index if found; otherwise, return -1.
+
+
+
+
+
+
+
+Q1. Count Partitions with Even Sum Difference
+
+You are given an integer array nums of length n.
+A partition is defined as an index i where 0 <= i < n - 1, splitting the array into two non-empty subarrays such that:
+Left subarray contains indices [0, i].
+Right subarray contains indices [i + 1, n - 1].
+Return the number of partitions where the difference between the sum of the left and right subarrays is even.
+
+class Solution {
+    public int countPartitions(int[] nums) {
+        int ts=0;
+        for(int num: nums){
+            ts+=num;
+        }
+        int ps=0;
+        int cnt=0;
+        for(int i=0;i<nums.length-1;i++){
+            ps+=nums[i];
+            int ss=ts-ps;
+            if((ps%2==0 && ss%2==0)||(ps%2==1 && ss%2==1)){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
+
+Approach:
+
+Calculate the total sum (ts) of the array.
+Iterate through the array while maintaining a prefix sum (ps).
+Compute the suffix sum (ss) by subtracting ps from ts.
+Check if both prefix and suffix sums have the same parity (even or odd), and if so, increment the count.
+Return the count of valid partitions.
+
+
+
+
+
+
+
+
