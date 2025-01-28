@@ -1,0 +1,99 @@
+1688. Count of Matches in Tournament
+
+You are given an integer n, the number of teams in a tournament that has strange rules:
+If the current number of teams is even, each team gets paired with another team. A total of n / 2 matches are played, and n / 2 teams advance to the next round.
+If the current number of teams is odd, one team randomly advances in the tournament, and the rest gets paired. A total of (n - 1) / 2 matches are played, and (n - 1) / 2 + 1 teams advance to the next round.
+Return the number of matches played in the tournament until a winner is decided.
+
+class Solution {
+    public int numberOfMatches(int n) {
+        int sum=0;
+        while(n>1){
+            int y=n/2;
+            sum+=y;
+            n=n-y;
+        }
+        return sum;
+    }
+}
+
+Approach
+Start with the total number of teams, n.
+Initialize a variable sum to keep track of the total number of matches.
+While n is greater than 1:
+If n is even, calculate matches as n/2 and update the number of teams as n/2.
+If n is odd, calculate matches as (n-1)/2 and update the number of teams as (n-1)/2 + 1.
+Add the matches of the current round to sum.
+Return the total matches stored in sum.
+
+
+1773. Count Items Matching a Rule
+
+You are given an array items, where each items[i] = [typei, colori, namei] describes the type, color, and name of the ith item. You are also given a rule represented by two strings, ruleKey and ruleValue.
+The ith item is said to match the rule if one of the following is true:
+ruleKey == "type" and ruleValue == typei.
+ruleKey == "color" and ruleValue == colori.
+ruleKey == "name" and ruleValue == namei.
+Return the number of items that match the given rule.
+
+class Solution {
+    public int countMatches(List<List<String>> items, String ruleKey, String ruleValue) {
+        int cnt=0;
+        int idx=0;
+        if(ruleKey.equals("type")){
+            idx=0;
+        }
+        else if(ruleKey.equals("color")){
+            idx=1;
+        }
+        else{
+            idx=2;
+        }
+        for(List<String> o: items){
+            if(o.get(idx).equals(ruleValue)){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
+
+Approach
+Initialize cnt to count matching items.
+Determine the index of ruleKey:
+"type" corresponds to index 0.
+"color" corresponds to index 1.
+"name" corresponds to index 2.
+Iterate through the list of items:
+Compare the value at the determined index with ruleValue.
+If it matches, increment cnt.
+Return cnt as the result.
+
+
+1108. Defanging an IP Address
+
+Given a valid (IPv4) IP address, return a defanged version of that IP address.
+A defanged IP address replaces every period "." with "[.]".
+
+class Solution {
+    public String defangIPaddr(String address) {
+        StringBuilder sb=new StringBuilder();
+        char[] arr=address.toCharArray();
+        for(int i=0;i<address.length();i++){
+            if(arr[i]=='.'){
+                sb.append("[.]");
+                continue;
+            }
+            sb.append(arr[i]);
+        }
+        return sb.toString();
+    }
+}
+
+Approach
+Initialize a StringBuilder to construct the defanged IP.
+Convert the input string address into a character array for easy iteration.
+Iterate through the characters in the array:
+If the character is a period ('.'), append "[.]" to the StringBuilder.
+Otherwise, append the character as it is.
+Convert the StringBuilder back to a string and return it.
