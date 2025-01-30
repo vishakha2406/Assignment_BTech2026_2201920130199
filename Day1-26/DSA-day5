@@ -1,0 +1,131 @@
+2442. Count Number of Distinct Integers After Reverse Operations
+
+You are given an array nums consisting of positive integers.
+You have to take each integer in the array, reverse its digits, and add it to the end of the array. You should apply this operation to the original integers in nums.
+Return the number of distinct integers in the final array.
+
+class Solution {
+    public int reverse(int ele){
+        int rev=0;
+        while(ele!=0){
+            int d=ele%10;
+            rev=rev*10+d;
+            ele/=10;
+        }
+        return rev;
+    }
+    public int countDistinctIntegers(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int ele:nums){
+            set.add(ele);
+            set.add(reverse(ele));
+        }
+        int cnt=0;
+        for(int i:set){
+            cnt++;
+        }
+        return cnt;
+    }
+}
+
+
+2744. Find Maximum Number of String Pairs
+
+You are given a 0-indexed array words consisting of distinct strings.
+The string words[i] can be paired with the string words[j] if:
+The string words[i] is equal to the reversed string of words[j].
+0 <= i < j < words.length.
+Return the maximum number of pairs that can be formed from the array words.
+
+Note that each string can belong in at most one pair.
+
+class Solution {
+    public int maximumNumberOfStringPairs(String[] words) {
+        HashSet<String> set = new HashSet<>();
+        int count=0;
+        for(int i=0;i<words.length;i++){
+            String rev = reverse(words[i]);
+            if(set.contains(rev)){
+                set.remove(rev);
+                count++;
+            }
+            else{
+                set.add(words[i]);
+            }
+        }
+        return count;
+    }
+    public String reverse(String s){
+        StringBuilder sb = new StringBuilder(s);
+        sb.reverse();
+        return sb.toString();  
+    }
+}
+
+
+
+242. Valid Anagram
+
+Given two strings s and t, return true if t is an 
+anagram of s, and false otherwise.
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length()!=t.length()) return false;
+        HashMap<Character,Integer> sm=new HashMap<>();
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if(sm.containsKey(ch)){
+                int freq=sm.get(ch);
+                sm.put(ch,freq+1);
+            }else{
+                sm.put(ch,1);
+            }
+        }
+        HashMap<Character,Integer> tm=new HashMap<>();
+        for(int i=0;i<t.length();i++){
+            char ch=t.charAt(i);
+            if(tm.containsKey(ch)){
+                int freq=tm.get(ch);
+                tm.put(ch,freq+1);
+            }else{
+                tm.put(ch,1);
+            }
+        }
+        for(char key:sm.keySet()){
+            int val1=sm.get(key);
+            if(!tm.containsKey(key)) return false;
+            int val2=tm.get(key);
+            if(val1!=val2) return false;
+        }
+        return true;
+    }
+}
+
+
+1207. Unique Number of Occurrences
+
+Given an array of integers arr, return true if the number of occurrences of each value in the array is unique or false otherwise.
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i=0;i<arr.length;i++){
+            if(map.containsKey(arr[i])){
+                int freq=map.get(arr[i]);
+                map.put(arr[i],freq+1);
+            }else{
+                map.put(arr[i],1);
+            }
+        }
+        HashSet<Integer> set=new HashSet<>();
+        for(int val: map.values()){
+            if(set.contains(val)){
+                return false;
+            }else{
+                set.add(val);
+            }
+        }
+        return true;
+    }
+}
